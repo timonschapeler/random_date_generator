@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
             maintainState: true,
             child: Text(
               //'${currentDate.weekday}',
-              '${DateFormat('EEEE').format(currentDate)}',
+              DateFormat('EEEE').format(currentDate),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 35.0,
