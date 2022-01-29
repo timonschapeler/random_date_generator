@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
@@ -46,8 +46,9 @@ class _HomeState extends State<Home> {
           ],
         bottom: const TabBar(
           tabs: [
-            Tab(text: 'Generate', icon: Icon(Icons.calendar_today)),
-            Tab(text: 'Verify', icon: Icon(Icons.check_rounded)),
+            Tab(icon: Icon(Icons.calendar_today)),//text: 'Generate',
+            Tab(icon: Icon(Icons.check_rounded)),//text: 'Verify',
+            Tab(icon: Icon(Icons.settings)),//text: 'Settings',
           ],
         ),
       ),
@@ -133,7 +134,7 @@ class _HomeState extends State<Home> {
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(5.0),
-                    hintText: 'Enter date as yyyy-mm-dd',
+                    hintText: 'Enter date as dd.mm.yyyy',
                     hintStyle: TextStyle(
                     color: Colors.grey),
                   ),
@@ -154,7 +155,8 @@ class _HomeState extends State<Home> {
                             //content: Text(verifyDate.text),
                             //content: Text(DateFormat('EEEE').format(DateTime.parse('$verifyDate'.substring(6,10)+'-'+'$verifyDate'.substring(3,5)+'-'+'$verifyDate'.substring(0,2)))),
                             //content: Text('$verifyDate'.substring(6,10)+'-'+'$verifyDate'.substring(3,5)+'-'+'$verifyDate'.substring(0,2)),
-                            content: Text(DateFormat('EEEE').format(DateTime.parse(verifyDate.text))), //TODO: fix crashes for incorrect input format
+                            //content: Text(DateFormat('EEEE').format(DateTime.parse(verifyDate.text))), //TODO: fix crashes for incorrect input format
+                            content: Text(DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate.text))), //TODO: fix crashes for incorrect input format
                           );
                         },
                     );
@@ -163,6 +165,16 @@ class _HomeState extends State<Home> {
                       primary: Colors.grey[850],
                       minimumSize: const Size(180.0,50.0))
               ),
+              ],
+          ),
+          // #######################################
+          // ### The following part is the Tab 1 ###
+          // #######################################
+          Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+
               ],
           ),
         ],
