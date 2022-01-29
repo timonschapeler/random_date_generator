@@ -148,18 +148,26 @@ class _HomeState extends State<Home> {
                       )
                   ),
                   onPressed: () {
-                    showDialog(
+                    try {
+                      showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            //content: Text(verifyDate.text),
-                            //content: Text(DateFormat('EEEE').format(DateTime.parse('$verifyDate'.substring(6,10)+'-'+'$verifyDate'.substring(3,5)+'-'+'$verifyDate'.substring(0,2)))),
-                            //content: Text('$verifyDate'.substring(6,10)+'-'+'$verifyDate'.substring(3,5)+'-'+'$verifyDate'.substring(0,2)),
-                            //content: Text(DateFormat('EEEE').format(DateTime.parse(verifyDate.text))), //TODO: fix crashes for incorrect input format
-                            content: Text(DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate.text))), //TODO: fix crashes for incorrect input format
+                            content: Text(
+                                DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate.text))
+                            ), //TODO: fix crashes
                           );
                         },
-                    );
+                      );
+                    } on Exception catch (e) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                            content: Text('Invalid Date or Format'),);
+                        },
+                      );
+                    }
                     },
                   style: ElevatedButton.styleFrom(
                       primary: Colors.grey[850],
