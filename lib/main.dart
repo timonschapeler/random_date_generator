@@ -25,7 +25,9 @@ class _HomeState extends State<Home> {
       _isVisible = false;
     });
   }
-  final verifyDate = TextEditingController();
+  final verifyDate_day = TextEditingController();
+  final verifyDate_month = TextEditingController();
+  final verifyDate_year = TextEditingController();
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
@@ -126,20 +128,50 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextField(
-                  controller: verifyDate,
-                  style: const TextStyle(color: Colors.white),
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.all(5.0),
-                    hintText: 'Enter date as dd.mm.yyyy',
-                    hintStyle: TextStyle(
-                    color: Colors.grey),
-                  ),
-                  maxLength: 10,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        controller: verifyDate_day,
+                        style: const TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          hintText: 'dd',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        maxLength: 2,
+                      ),
+                    ),
+                    Flexible(
+                      child: TextField(
+                        controller: verifyDate_month,
+                        style: const TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          hintText: 'mm',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        maxLength: 2,
+                      ),
+                    ),
+                    Flexible(
+                      child: TextField(
+                        controller: verifyDate_year,
+                        style: const TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          hintText: 'yyyy',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        maxLength: 4,
+                      ),
+                    ),
+                  ],
                 ),
                 ElevatedButton(
                   child: const Text('Check Weekday',
@@ -154,7 +186,7 @@ class _HomeState extends State<Home> {
                         builder: (context) {
                           return AlertDialog(
                             content: Text(
-                                DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate.text))
+                                DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate_day.text+'.'+verifyDate_month.text+'.'+verifyDate_year.text))
                             ), //TODO: fix crashes
                           );
                         },
