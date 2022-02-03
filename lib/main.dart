@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:random_date/random_date.dart';
 import 'package:intl/intl.dart';
 
@@ -25,7 +26,7 @@ class _HomeState extends State<Home> {
       _isVisible = false;
     });
   }
-  final verifyDate_day = TextEditingController();
+  final verifyDate_day = TextEditingController();//..text = '12';
   final verifyDate_month = TextEditingController();
   final verifyDate_year = TextEditingController();
 
@@ -128,59 +129,65 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      child: TextField(
-                        controller: verifyDate_day,
-                        style: const TextStyle(color: Colors.white),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          //alignLabelWithHint: true,
-                          labelText: 'Day',
-                          hintText: 'dd',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          counterText: "",
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        child: TextField(
+                          controller: verifyDate_day,
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            //alignLabelWithHint: true,
+                            labelText: 'Day',
+                            hintText: 'dd',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            counterText: "",
+                          ),
+                          maxLength: 2,
                         ),
-                        maxLength: 2,
                       ),
-                    ),
-                    Flexible(
-                      child: TextField(
-                        controller: verifyDate_month,
-                        style: const TextStyle(color: Colors.white),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          //alignLabelWithHint: true,
-                          labelText: 'Month',
-                          hintText: 'mm',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          counterText: "",
+                      Flexible(
+                        child: TextField(
+                          controller: verifyDate_month,
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            //alignLabelWithHint: true,
+                            labelText: 'Month',
+                            hintText: 'mm',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            counterText: "",
+                          ),
+                          maxLength: 2,
                         ),
-                        maxLength: 2,
                       ),
-                    ),
-                    Flexible(
-                      child: TextField(
-                        controller: verifyDate_year,
-                        style: const TextStyle(color: Colors.white),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          //alignLabelWithHint: true,
-                          labelText: 'Year',
-                          hintText: 'yyyy',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          counterText: "",
+                      Flexible(
+                        child: TextField(
+                          controller: verifyDate_year,
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            //alignLabelWithHint: true,
+                            labelText: 'Year',
+                            hintText: 'yyyy',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            counterText: "",
+                          ),
+                          maxLength: 4,
                         ),
-                        maxLength: 4,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 ElevatedButton(
                   child: const Text('Check Weekday',
@@ -196,7 +203,7 @@ class _HomeState extends State<Home> {
                           return AlertDialog(
                             content: Text(
                                 DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate_day.text+'.'+verifyDate_month.text+'.'+verifyDate_year.text))
-                            ), //TODO: fix crashes
+                            ), //TODO: fix crashes for empty text field
                           );
                         },
                       );
@@ -217,7 +224,7 @@ class _HomeState extends State<Home> {
               ],
           ),
           // #######################################
-          // ### The following part is the Tab 1 ###
+          // ### The following part is the Tab 3 ###
           // #######################################
           Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
