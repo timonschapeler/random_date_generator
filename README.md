@@ -8,9 +8,14 @@ This project is able to generate random dates on a button press.
 It reveals the weekday on another button press.
 It can be used to train calculating the weekday for any random date.
 
-Added the option to check a date via a text field, date has to be given as 'yyyy-MM-dd'.
+v1.0.0
+Date generation in a fixed (default) range
 
-## Current date regime
+v1.0.1
+Added the option to check a date via a text field.
+Added a settings menu, where the year range can be specified.
+
+## Default date range
 1700 - 2400
 
 ## Thanks

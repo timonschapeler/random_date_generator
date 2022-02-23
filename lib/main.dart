@@ -146,7 +146,9 @@ class _HomeState extends State<Home> {
                       Flexible(
                         child: TextField(
                           controller: verifyDate_day,
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20),
                           keyboardType: TextInputType.number,
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           textAlign: TextAlign.center,
@@ -165,7 +167,9 @@ class _HomeState extends State<Home> {
                       Flexible(
                         child: TextField(
                           controller: verifyDate_month,
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(
+                              color: Colors.white,
+                          fontSize: 20),
                           keyboardType: TextInputType.number,
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           textAlign: TextAlign.center,
@@ -184,7 +188,9 @@ class _HomeState extends State<Home> {
                       Flexible(
                         child: TextField(
                           controller: verifyDate_year,
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(
+                              color: Colors.white,
+                          fontSize: 20),
                           keyboardType: TextInputType.number,
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           textAlign: TextAlign.center,
@@ -248,18 +254,19 @@ class _HomeState extends State<Home> {
                     Flexible(
                       child: TextField(
                         controller: _startYear,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                            color: Colors.white,
+                        fontSize: 20),
                         keyboardType: TextInputType.number,
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         textAlign: TextAlign.center,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           //alignLabelWithHint: true,
                           labelText: 'Start year',
                           labelStyle: TextStyle(color: Colors.white),
                           hintText: 'yyyy, default 1700',
                           hintStyle: TextStyle(color: Colors.grey),
                           counterText: "",
-                          errorText: _validate_month ? 'Specify month' : null,
                         ),
                         maxLength: 4,
                       ),
@@ -267,7 +274,9 @@ class _HomeState extends State<Home> {
                     Flexible(
                       child: TextField(
                         controller: _endYear,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                            color: Colors.white,
+                        fontSize: 20),
                         keyboardType: TextInputType.number,
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         textAlign: TextAlign.center,
