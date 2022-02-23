@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var currentDate = RandomDate.withRange(1700, 2400).random();
+  var currentDate = RandomDate.withRange(1700, 2400).random(); //initial date, when app is opened
   bool _isVisible = false;
 
   void showText() {
@@ -32,6 +32,11 @@ class _HomeState extends State<Home> {
   bool _validate_day = false;
   bool _validate_month = false;
   bool _validate_year = false;
+
+  final _startYear = TextEditingController(); //controls the startYear in the settings menu
+  final _endYear = TextEditingController(); //controls the endYear in the settings menu
+  var startYear = 1700; //default
+  var endYear = 2400; //default
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
@@ -103,7 +108,7 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       doNotShowText();
                       setState(() {
-                        currentDate = RandomDate.withRange(1700, 2400).random();
+                        currentDate = RandomDate.withRange(startYear, endYear).random();
                       });
                     },
                     style: ElevatedButton.styleFrom(
@@ -215,10 +220,9 @@ class _HomeState extends State<Home> {
                       builder: (context) {
                           return AlertDialog(
                             content: Text(
-                                (verifyDate_day.text.isEmpty || verifyDate_month.text.isEmpty || verifyDate_year.text.isEmpty) ? 'Input can\'t be empty.' : DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate_day.text + '.' + verifyDate_month.text + '.' + verifyDate_year.text))
-                                //DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate_day.text + '.' + verifyDate_month.text + '.' + verifyDate_year.text))
+                                (verifyDate_day.text.isEmpty || verifyDate_month.text.isEmpty || verifyDate_year.text.isEmpty) ? 'Input can\'t be empty.' : DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate_day.text + '.' + verifyDate_month.text + '.' + verifyDate_year.text)) // || is or, and this line implements an if/else condition
                             ),
-                          );//TODO: fix crashes for empty text field
+                          );
                       },
                     );
                   },
@@ -232,11 +236,82 @@ class _HomeState extends State<Home> {
           // ### The following part is the Tab 3 ###
           // #######################################
           Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-
-              ],
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        controller: _startYear,
+                        style: const TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          //alignLabelWithHint: true,
+                          labelText: 'Start year',
+                          labelStyle: TextStyle(color: Colors.white),
+                          hintText: 'yyyy, default 1700',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          counterText: "",
+                          errorText: _validate_month ? 'Specify month' : null,
+                        ),
+                        maxLength: 4,
+                      ),
+                    ),
+                    Flexible(
+                      child: TextField(
+                        controller: _endYear,
+                        style: const TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          //alignLabelWithHint: true,
+                          labelText: 'End year',
+                          labelStyle: TextStyle(color: Colors.white),
+                          hintText: 'yyyy, default 2400',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          counterText: "",
+                        ),
+                        maxLength: 4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+                ElevatedButton(
+                        child: const Text('Update',
+                            style: TextStyle(
+                                fontSize: 20.0
+                            )
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            startYear = int.parse(_startYear.text);
+                            endYear = int.parse(_endYear.text);
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: Text(
+                                    (startYear <= endYear) ? 'Updated successfully' : 'Start year <= End year'
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.grey[850],
+                            minimumSize: const Size(180.0,50.0))
+                    ),
+            ],
           ),
         ],
       ),
