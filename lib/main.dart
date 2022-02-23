@@ -29,6 +29,9 @@ class _HomeState extends State<Home> {
   final verifyDate_day = TextEditingController();//..text = '12';
   final verifyDate_month = TextEditingController();
   final verifyDate_year = TextEditingController();
+  bool _validate_day = false;
+  bool _validate_month = false;
+  bool _validate_year = false;
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
@@ -142,12 +145,14 @@ class _HomeState extends State<Home> {
                           keyboardType: TextInputType.number,
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           textAlign: TextAlign.center,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             //alignLabelWithHint: true,
                             labelText: 'Day',
+                            labelStyle: TextStyle(color: Colors.white),
                             hintText: 'dd',
                             hintStyle: TextStyle(color: Colors.grey),
                             counterText: "",
+                            errorText: _validate_day ? 'Specify day' : null,
                           ),
                           maxLength: 2,
                         ),
@@ -159,12 +164,14 @@ class _HomeState extends State<Home> {
                           keyboardType: TextInputType.number,
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           textAlign: TextAlign.center,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             //alignLabelWithHint: true,
                             labelText: 'Month',
+                            labelStyle: TextStyle(color: Colors.white),
                             hintText: 'mm',
                             hintStyle: TextStyle(color: Colors.grey),
                             counterText: "",
+                            errorText: _validate_month ? 'Specify month' : null,
                           ),
                           maxLength: 2,
                         ),
@@ -176,12 +183,14 @@ class _HomeState extends State<Home> {
                           keyboardType: TextInputType.number,
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           textAlign: TextAlign.center,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             //alignLabelWithHint: true,
                             labelText: 'Year',
+                            labelStyle: TextStyle(color: Colors.white),
                             hintText: 'yyyy',
                             hintStyle: TextStyle(color: Colors.grey),
                             counterText: "",
+                            errorText: _validate_year ? 'Specify year' : null,
                           ),
                           maxLength: 4,
                         ),
@@ -196,27 +205,23 @@ class _HomeState extends State<Home> {
                       )
                   ),
                   onPressed: () {
-                    try {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
+                    setState(() {
+                      verifyDate_day.text.isEmpty ? _validate_day = true : _validate_day = false;
+                      verifyDate_month.text.isEmpty ? _validate_month = true : _validate_month = false;
+                      verifyDate_year.text.isEmpty ? _validate_year = true : _validate_year = false;
+                    });
+                    showDialog(
+                      context: context,
+                      builder: (context) {
                           return AlertDialog(
                             content: Text(
-                                DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate_day.text+'.'+verifyDate_month.text+'.'+verifyDate_year.text))
-                            ), //TODO: fix crashes for empty text field
-                          );
-                        },
-                      );
-                    } on Exception catch (e) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const AlertDialog(
-                            content: Text('Invalid Date or Format'),);
-                        },
-                      );
-                    }
-                    },
+                                (verifyDate_day.text.isEmpty || verifyDate_month.text.isEmpty || verifyDate_year.text.isEmpty) ? 'Input can\'t be empty.' : DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate_day.text + '.' + verifyDate_month.text + '.' + verifyDate_year.text))
+                                //DateFormat('EEEE').format(DateFormat('dd.MM.yyyy').parse(verifyDate_day.text + '.' + verifyDate_month.text + '.' + verifyDate_year.text))
+                            ),
+                          );//TODO: fix crashes for empty text field
+                      },
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                       primary: Colors.grey[850],
                       minimumSize: const Size(180.0,50.0))
