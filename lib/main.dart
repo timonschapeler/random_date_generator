@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:random_date/random_date.dart';
 import 'package:intl/intl.dart';
+import 'tutorial.dart';
 
 void main() => runApp(MaterialApp(
   home: Home(),
@@ -40,7 +41,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
@@ -59,6 +60,7 @@ class _HomeState extends State<Home> {
           tabs: [
             Tab(icon: Icon(Icons.calendar_today)),//text: 'Generate',
             Tab(icon: Icon(Icons.check_rounded)),//text: 'Verify',
+            Tab(icon: Icon(Icons.help_outline)),//text: 'Verify',
             Tab(icon: Icon(Icons.settings)),//text: 'Settings',
           ],
         ),
@@ -240,6 +242,10 @@ class _HomeState extends State<Home> {
           ),
           // #######################################
           // ### The following part is the Tab 3 ###
+          // #######################################
+          Tutorial(),
+          // #######################################
+          // ### The following part is the Tab 4 ###
           // #######################################
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
